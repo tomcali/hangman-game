@@ -27,7 +27,7 @@ The game is a hangman style game displayed with a Bootstrap Jumbotron at the top
 - One image used as background for the Bootstrap Jumbotron
 
 ## Code Explanation
-- We start with GitHub, setting up the hangman-game repostory. We set up directories and subdirectories according to the assignment definitions. And we added bootstap as a directory, using the same structure as in the previous assignment. The javascript directory includes my JavaScript code and the JSON data. A separate js directory was set up for the JQuery code. (Because I like to be able to continue working when I do not have a connection to the Internet, I include copies of files in the repositories. Both human-readable and minified versions of JQuery were included because I am learning JQuery, and would like to inspect code for functions/methods on occasion.)
+- We start with GitHub, setting up the hangman-game repostory. We set up directories and subdirectories according to the assignment definitions. And we added bootstap as a directory, using the same structure as in the previous assignment. The javascript directory includes my JavaScript code and the JSON data. A separate js directory was set up for the jQuery code. (Because I like to be able to continue working when I do not have a connection to the Internet, I include copies of files in the repositories. Both human-readable and minified versions of JQuery were included because I am learning jQuery, and would like to inspect code for functions/methods on occasion.)
 - Set up the structure a la bootstrap.
 - Set up method for importing the data for the statistical terms in the JSON structure.
 - Did a bit of JavaScrip coding for the game itself. There are still rough edges that need work but the general structure is in place.
