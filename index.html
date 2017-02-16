@@ -11,22 +11,33 @@
 
 <body>
     <div class="jumbotron">
+        <h2 class="text-center"></h2>
+        <p class="text-center"></p>
+    </div>
+
+   <div class="jumbotext">
         <h2 class="text-center">Guessing Your Way through Statistics</h2>
         <p class="text-center">Statistics doesn't have to be dull. Have fun with this hangman-style game involving statistical terminology.</p>
-        <p><a class="btn btn-default" role="button" href="#">To guess is to learn.</a></p>
+        <p><a class="btn btn-default" role="button" href="#">Play New Game</a></p>
     </div>
+
     <div class="container">
         <div class="row">
             <div class="col-md-4">
+                <p>Guess the statistical term.</p>
                 <p>One letter of the term goes in each space.</p>
+                <p>Hint:</p>
+                <p id="lettersInSpaces"></p>
+                <p id="letterSpaces"></p>
             </div>
             <div class="col-md-4">
-                <p>Guesses remaining:</p>
-                <p>Letters used:</p>
+                <p id="guessesRemaining">Guesses remaining:</p>
+                <p id="lettersAvailable">Letters available:</p>
+                <p id="lettersUsed">Letters used:</p>
             </div>
             <div class="col-md-4">
-                <p>Status: </p>
-                <p>Definition: </p>
+                <p id="status">Status: </p>
+                <p id="definition">Definition: </p>
             </div>
         </div>
     </div>
@@ -36,6 +47,7 @@
         </div>
     </footer>
     <script src="assets/javascript/readGameData.js"></script>
+    <script src="assets/javascript/setFunctions.js"></script>
     <script src="assets/javascript/game.js"></script>
     <script src="assets/js/jquery-3.1.1.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
