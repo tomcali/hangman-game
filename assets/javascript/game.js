@@ -50,7 +50,22 @@ console.log('initial usedLetterSet: ', usedLetterSet);
 var numberGuessesAllowed = 3;  // hangman rules
 var numberBadGuesses = 0;  // initialize count prior to for-loop
 var continueGame = true;  // Boolean switch use in while loop
-var outcomeMessage = '';  // initialize message showing game outcome
+var outcomeMessage = 'Playing Game';  // initialize message showing game outcome
+
+var statusText = document.getElementById("status");
+statusText.innerHTML = outcomeMessage;
+
+var definitionText = document.getElementById("definition");
+definitionText.innerHTML = ''; // blank definition text to begin game
+
+var hintText = document.getElementById("hintText");
+hintText.innerHTML = 'Hint: ' + selectedTerm['hint']; // blank definition text to begin game
+
+var guessesRemaining = document.getElementById("guessesRemaining");
+var lettersAvailable = document.getElementById("lettersAvailable");
+var lettersUsed = document.getElementById("lettersUsed");
+var targetLetters = document.getElementById("targetLetters");
+
 while ((numberBadGuesses < numberGuessesAllowed) && continueGame) {
 	var promptGuessLetter = prompt('enter a letter from the alphabet');
     console.log('promptGuessLetter: ', promptGuessLetter);
@@ -82,7 +97,7 @@ while ((numberBadGuesses < numberGuessesAllowed) && continueGame) {
         }
 
     	console.log('current target display:', target);
-
+        targetLetters.innerHTML =  target;
         // if there are no longer any blank characters in the target
         // then the game has been won and we pop out of the while-loop
         var targetSet = new Set(target);
@@ -93,8 +108,17 @@ while ((numberBadGuesses < numberGuessesAllowed) && continueGame) {
     }
     else {
         numberBadGuesses++;
-        console.log('numberBadGuesses: ', numberBadGuesses)
+        console.log('numberBadGuesses: ', numberBadGuesses);
+        guessesRemaining.innerHTML = 'Guessing remaining: ' +
+            (numberGuessesAllowed - numberBadGuesses);
     }
+    var availableLetterArray = Array.from(availableLetterSet);
+    lettersAvailable.innerHTML = 
+        'Letters available: ' + availableLetterArray;
+
+    var usedLetterArray = Array.from(usedLetterSet);
+    lettersUsed.innerHTML = 
+        'Letters used: ' + usedLetterArray;    
 
 } // end of major while-loop
 
@@ -102,7 +126,14 @@ while ((numberBadGuesses < numberGuessesAllowed) && continueGame) {
 // guessing all the letters... then you lose the game
 // ... but the correct answer is shown with definition
 
+
+
 if (numberBadGuesses === numberGuessesAllowed)
 	outcomeMessage = 'Better Luck Next Time';
 
 console.log('----- outcomeMessage:', outcomeMessage)
+
+// report result of game to DOM
+statusText.innerHTML = outcomeMessage;
+
+definitionText.innerHTML = selectedTerm['definition'];
