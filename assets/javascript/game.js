@@ -1,139 +1,160 @@
-// hangman-style game for teaching statistics
+ // hangman-style game for teaching statistics
+// https://d3js.org Version 4.2.7. Copyright 2016 Mike Bostock.
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+  typeof define === 'function' && define.amd ? define(['exports'], factory) :
+  (factory((global.mygame = global.mygame || {})));
+}(this, (function (exports) { 'use strict';
 
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min)) + min;
-}
+// $(function() {  // earlier attempt via jQuery
 
-// readGameData.js contains an array of JSON objects for the game items
-console.log('the game data represent an object with statistical terms,');
-console.log('short hints, and complete definitions of the terms.,');
-console.log(gameData);
+     // readGameData.js contains an array of JSON objects for the terms
+     console.log('the game data represent an object with statistical terms,');
+     console.log('short hints, and complete definitions of the terms.,');
+     console.log(gameData);
 
-// choose an term at random
-var indexOfTerm = getRandomInt(0, gameData.length - 1);
-var selectedTerm = gameData[indexOfTerm];
+     // choose an term at random
+     var indexOfTerm = getRandomInt(0, gameData.length);
+     console.log('selected random integer, index of term: ' + indexOfTerm);
+     var selectedTerm = gameData[indexOfTerm];
 
-console.log('selected term:', selectedTerm['term']);
-console.log('selected hint:', selectedTerm['hint']);
-console.log('selected definition:', selectedTerm['definition']);
+     console.log('The correct word is ' + selectedTerm['term'] + '.');
+     console.log('selected term:', selectedTerm['term']);
+     console.log('selected hint:', selectedTerm['hint']);
+     console.log('selected definition:', selectedTerm['definition']);
 
-var numberTargetLetters = selectedTerm['term'].length;
-console.log('number of letters in target: ', numberTargetLetters);
+     var numberTargetLetters = selectedTerm['term'].length;
+     console.log('number of letters in target: ', numberTargetLetters);
 
-var target = []; // declare target array for display of solution
-for (i=0; i<numberTargetLetters; i++) {
-    target.push(' ');  
-    }
-console.log('initial target has: ' + target.length + ' blank characters');
+     var target = []; // declare target array for display of solution
+     for (var i = 0; i < numberTargetLetters; i++) 
+         target.push('_'); // start with underline
+     
+     console.log('initial target has: ' + target.length + ' blank characters');
 
-var termLetters = selectedTerm['term'].split("");
-console.log('termLetters: ', termLetters); 
+     var termLetters = selectedTerm['term'].split("");
+     console.log('termLetters: ', termLetters);
 
-var termLetterSet = new Set(termLetters);
-console.log('termLetterSet:', termLetterSet);
+     var termLetterSet = new Set(termLetters);
+     console.log('termLetterSet:', termLetterSet);
 
-var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G',
-    'H', 'I', 'J', 'K', 'L', 'M', 'N',
-    'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+     var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G',
+         'H', 'I', 'J', 'K', 'L', 'M', 'N',
+         'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+     ];
 
-var alphabetSet = new Set(alphabet);
-console.log('alphabetSet: ', alphabetSet);
+     var alphabetSet = new Set(alphabet);
+     console.log('alphabetSet: ', alphabetSet);
 
-var availableLetterSet = new Set(alphabet);
-console.log('availableLetterSet: ', availableLetterSet);
+     var availableLetterSet = new Set(alphabet);
+     console.log('availableLetterSet: ', availableLetterSet);
 
-var usedLetterSet = new Set();  // begins as empty set
-console.log('initial usedLetterSet: ', usedLetterSet);
+     var usedLetterSet = new Set(); // begins as empty set
+     console.log('initial usedLetterSet: ', usedLetterSet);
 
-var numberGuessesAllowed = 3;  // hangman rules
-var numberBadGuesses = 0;  // initialize count prior to for-loop
-var continueGame = true;  // Boolean switch use in while loop
-var outcomeMessage = 'Playing Game';  // initialize message showing game outcome
+     var numberGuessesAllowed = 3; // hangman rules
+     var numberBadGuesses = 0; // initialize count prior to for-loop
+     var continueGame = true; // Boolean switch use in while loop
+     var outcomeMessage = 'Playing Game'; // initialize message showing game outcome
 
-var statusText = document.getElementById("status");
-statusText.innerHTML = outcomeMessage;
+     var statusText = document.getElementById("status");
 
-var definitionText = document.getElementById("definition");
-definitionText.innerHTML = ''; // blank definition text to begin game
+     var definitionText = document.getElementById("definition");
 
-var hintText = document.getElementById("hintText");
-hintText.innerHTML = 'Hint: ' + selectedTerm['hint']; // blank definition text to begin game
+     var hintText = document.getElementById("hintText");
 
-var guessesRemaining = document.getElementById("guessesRemaining");
-var lettersAvailable = document.getElementById("lettersAvailable");
-var lettersUsed = document.getElementById("lettersUsed");
-var targetLetters = document.getElementById("targetLetters");
+     var correctTerm = document.getElementById("correctTerm");
 
-while ((numberBadGuesses < numberGuessesAllowed) && continueGame) {
-	var promptGuessLetter = prompt('enter a letter from the alphabet');
-    console.log('promptGuessLetter: ', promptGuessLetter);
-	// this must be a single letter... no other characters permitted
-	// we convert the typed letter to uppercase
-    // with each guess we add to the usedLetterSet
-    // and delete from the availableLetterSet 
-    var thisGuessLetter = promptGuessLetter.toUpperCase();
-    console.log('thisGuessLetter: ', thisGuessLetter);
+     var guessesRemaining = document.getElementById("guessesRemaining");
+     var lettersAvailable = document.getElementById("lettersAvailable");
+     var lettersUsed = document.getElementById("lettersUsed");
+     var targetLetters = document.getElementById("targetLetters");
 
-    usedLetterSet.add(thisGuessLetter);
-    console.log('current usedLetterSet: ', usedLetterSet);
+     targetLetters.innerHTML = target.join(' ');
 
-    availableLetterSet.delete(thisGuessLetter);
-    console.log('current availableLetterSet:', availableLetterSet);
-    
-    // if the guessLetter is in the termLetterSet then
-    //   we take appropriate action to display updated target
+     while ((numberBadGuesses < numberGuessesAllowed) && continueGame) {
+         // use dashes as separator for iterations in console
 
-    // if the guessLetter is not in the termLetterSet then
-    //   we increment the numberBadGuesses 
+         statusText.innerHTML = outcomeMessage;
+         definitionText.innerHTML = ''; // blank definition text to begin game
+         hintText.innerHTML = 'Hint: ' + selectedTerm['hint']; // blank definition text to begin game
 
-    if (termLetterSet.has(thisGuessLetter)) {
-    	// update the target display by adding correct guess letter
-        for (i=0; i<numberTargetLetters; i++) {
-        	if (thisGuessLetter === termLetters[i]) {
-        		target[i] = thisGuessLetter
-        	}
-        }
+         console.log('---------------------------')
 
-    	console.log('current target display:', target);
-        targetLetters.innerHTML =  target;
-        // if there are no longer any blank characters in the target
-        // then the game has been won and we pop out of the while-loop
-        var targetSet = new Set(target);
-        if (!targetSet.has(' ')) {
-        	outcomeMessage = 'You Win';
-        	continueGame = false;
-        }
-    }
-    else {
-        numberBadGuesses++;
-        console.log('numberBadGuesses: ', numberBadGuesses);
-        guessesRemaining.innerHTML = 'Guessing remaining: ' +
-            (numberGuessesAllowed - numberBadGuesses);
-    }
-    var availableLetterArray = Array.from(availableLetterSet);
-    lettersAvailable.innerHTML = 
-        'Letters available: ' + availableLetterArray;
+         var promptGuessLetter = prompt('enter a letter from the alphabet');
+         console.log('promptGuessLetter: ', promptGuessLetter);
+         // this must be a single letter... no other characters permitted
+         // we convert the typed letter to uppercase
+         // with each guess we add to the usedLetterSet
+         // and delete from the availableLetterSet 
+         var thisGuessLetter = promptGuessLetter.toUpperCase();
+         console.log('thisGuessLetter: ', thisGuessLetter);
 
-    var usedLetterArray = Array.from(usedLetterSet);
-    lettersUsed.innerHTML = 
-        'Letters used: ' + usedLetterArray;    
+         usedLetterSet.add(thisGuessLetter);
+         console.log('current usedLetterSet: ', usedLetterSet);
 
-} // end of major while-loop
+         availableLetterSet.delete(thisGuessLetter);
+         console.log('current availableLetterSet:',
+             availableLetterSet);
 
-// if finish your alloted numberGuessesAllowed without
-// guessing all the letters... then you lose the game
-// ... but the correct answer is shown with definition
+         // if the guessLetter is in the termLetterSet then
+         //   we take appropriate action to display updated target
 
+         // if the guessLetter is not in the termLetterSet then
+         //   we increment the numberBadGuesses 
 
+         if (termLetterSet.has(thisGuessLetter)) {
+             // update the target display by adding correct guess letter
+             console.log(thisGuessLetter + ' is a correct guess')
 
-if (numberBadGuesses === numberGuessesAllowed)
-	outcomeMessage = 'Better Luck Next Time';
+             for (i = 0; i < numberTargetLetters; i++) {
+                 if (thisGuessLetter === termLetters[i]) {
+                     target[i] = thisGuessLetter
+                 }
+             }
 
-console.log('----- outcomeMessage:', outcomeMessage)
+             console.log('current target display:', target.join(' '));
+             targetLetters.innerHTML = target.join(' ');
+             // if there are no longer any blank characters in the target
+             // then the game has been won and we pop out of the while-loop
+             var targetSet = new Set(target);
+             if (!targetSet.has('_')) {
+                 outcomeMessage = 'You Win';
+                 continueGame = false;
+             }
+         } else {
+             console.log(thisGuessLetter + ' is NOT a correct guess')
+             numberBadGuesses++;
+             console.log('numberBadGuesses: ', numberBadGuesses);
+             guessesRemaining.innerHTML = 'Guessing remaining: ' +
+                 (numberGuessesAllowed - numberBadGuesses);
+             console.log('current target display:', target.join(' '));
+         }
+         var availableLetterArray = Array.from(availableLetterSet);
+         lettersAvailable.innerHTML =
+             'Letters available: ' + availableLetterArray.join(' ');
 
-// report result of game to DOM
-statusText.innerHTML = outcomeMessage;
+         var usedLetterArray = Array.from(usedLetterSet);
+         lettersUsed.innerHTML =
+             'Letters used: ' + usedLetterArray.join(' ');
 
-definitionText.innerHTML = selectedTerm['definition'];
+     } // end of major while-loop
+
+     // if finish your alloted numberGuessesAllowed without
+     // guessing all the letters... then you lose the game
+     // ... but the correct answer is shown with definition
+
+     if (numberBadGuesses === numberGuessesAllowed) {
+         outcomeMessage = 'Better Luck Next Time';
+     }
+
+     console.log('----- outcomeMessage:', outcomeMessage)
+
+     // report result of game to DOM
+     statusText.innerHTML = outcomeMessage;
+
+     correctTerm.innerHTML = ('The correct word is ' + selectedTerm['term'] + '.');
+
+     definitionText.innerHTML = selectedTerm['definition'];
+ })));
+

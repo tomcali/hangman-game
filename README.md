@@ -11,9 +11,13 @@ Mozilla at
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/
 
-Sets make implementing hangman game logic so much easier. I focused on the game logic on this assignment. Not really concerned about how good the final game looks. Function over form is the rule for now. To check out the function, I use lots of console.log() functions. I include a file of set functions as well, though I did not need to use these for the hangman game. Good to have them handy, though, for future projects.
+I am also putting together a collection of utility functions that I expect to draw on for future projects. These utilities will be my toolbox of sorts going forward. 
 
-I continue to work with Bootstrap 4, which is currently in alpha release. So far my testing of this shows that Bootstrap 4 operates about the same as Bootstrap 3. Documentation for Bootstrap 4 suggests that we should employ stlying best practices of normalize.css, such as using em rather than px for size paramters. Bootstrap 4 is actually a smaller package because it drops glyphs/icons included with Bootstrap 3, so these must be included as separate icon/glyph files. Bootstrap 4 also has an extra small setting for responsiveness, making solutions compatible with very small screens. If you interact with the web through your own version of a Dick Tracy watch, whether the product of Apple or Google, you may be better served by Bootstrap 4. 
+Sets simplify the implementation of hangman game logic. I focused on the game logic on this assignment. Not really concerned about how good the final game looks. Function over form is the rule for now. To check out the function, I use lots of console.log() functions. I include a file of set functions as well, though I did not need to use these for the hangman game. Good to have them handy, though, for future projects.
+
+I will continue to work with Bootstrap 4, which is currently in alpha release. 
+
+The program is operational. There are data validation issues to address in the future...  things relating to user data input, such as then incorrect or multiple letters are entered in response to the prompt(). But these, as we have been told in class, will be better handled by modals. Modals will wait for another day.
 
 ## Viewing the Websites
 
