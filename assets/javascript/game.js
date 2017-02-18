@@ -118,8 +118,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
          // while (!validResponseSet.has(promptGuessLetter))
 
          // var promptGuessLetter = ''; declare variable outside of anon function
+         
          var promptGuessLetter = 
-             document.getElementById('letterGuess').value;    
+             document.getElementById('letterGuess').value; 
+         promptGuessLetter.onkeyup = function(){
+            console.log("YES YES YES")
+            }; // end of processing relating to the onkeyup event
+
          // var promptGuessLetter = $('letterGuess').serialize();
 
          // ensure that the DOM has been loaded prior to prompt
@@ -202,6 +207,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
      definitionText.innerHTML = selectedTerm['definition'];
   
+
+
 });
 
  // })));

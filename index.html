@@ -28,11 +28,13 @@
                
                 <p id="hintText"></p>
                 <p id="oneLetterText">Type one letter and click Enter.</p>
-                <form id="letterForm">
-                Letter guess: <input id="letterGuess" name="letterGuess" type="text" size="1" maxlength="1" autofocus> <!--autofocus keeps cursor in text field -->
-                <!-- <p><a id="letterButton" class="btn btn-default" role="button" -->
-                     <!-- href="#" onClick=#>Enter</a></p> -->
-                </form>     
+                
+ <form id="letterForm">
+    <input type="text" maxlength="1" minlength="1" name="letterGuess" id="letterGuess" placeholder="Letter Guess" />
+    <input id="guess" name="guess" type="submit" value="Enter" />
+    <button id="restart" name="restart" type="button">Restart</button>
+</form>
+    
             </div>
             <div class="col-md-4">
                 <p id="guessesRemaining"></p>
