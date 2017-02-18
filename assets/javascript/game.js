@@ -67,20 +67,30 @@ document.addEventListener("DOMContentLoaded", function(event) {
      var termLetterSet = new Set(termLetters);
      console.log('termLetterSet:', termLetterSet);
 
-     var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G',
+     var alphabet = ['A', 'B', 'C', 'D', 
+         'E', 'F', 'G',
          'H', 'I', 'J', 'K', 'L', 'M', 'N',
-         'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+         'O', 'P', 'Q', 'R', 'S', 'T', 'U', 
+         'V', 'W', 'X', 'Y', 'Z'
      ];
 
      var alphabetSet = new Set(alphabet);
      console.log('alphabetSet: ', alphabetSet);
   
-     // define set of all valid responses... one letter uppercase or lowercase
-     // var validResponse = alphabet;
-     // for (i=0; i<alphabet.length; i++) 
-        // validResponse.push(alphabet[i].toLowerCase());
-     // var validResponseSet = new Set(validResponse); 
-
+    // define set of all valid responses...
+    // one letter uppercase or lowercase
+     var validResponse = ['a', 'b', 'c', 'd', 
+         'e', 'f', 'g',
+         'h', 'i', 'j', 'k', 'l', 'm', 'n',
+         'o', 'p', 'q', 'r', 's', 't', 'u', 
+         'v', 'w', 'x', 'y', 'z',
+         'A', 'B', 'C', 'D', 'E', 'F', 'G',
+         'H', 'I', 'J', 'K', 'L', 'M', 'N',
+         'O', 'P', 'Q', 'R', 'S', 'T', 'U', 
+         'V', 'W', 'X', 'Y', 'Z'
+     ];
+     var validResponseSet = new Set(validResponse);
+     console.log('validResponseSet: ', validResponseSet);
 
      var availableLetterSet = new Set(alphabet);
      console.log('availableLetterSet: ', availableLetterSet);
