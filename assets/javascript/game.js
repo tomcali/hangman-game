@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
          target.push('_'); // start with underline characters
 
  // set all items to blank at the start of a new game
-      startButton.onclick = function() {
+      // startButton.onclick = function() {
         statusText.innerHTML = '';
         definitionText.innerHTML = '';
         hintText.innerHTML = '';
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         lettersAvailable.innerHTML = '';
         lettersUsed.innerHTML = '';
         // targetLetters.innerHTML = '';
-     } // end of start of the game block
+     // } // end of start of the game block
 
      // beginPlay.onclick = function() {
        guessText.innerHTML = 'Guess the statistical term.'; 
