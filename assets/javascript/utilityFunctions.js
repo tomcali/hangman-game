@@ -7,7 +7,6 @@ function getRandomInt(min, max) {
 }
 
 // With execution in the form:
-
 // console.log('before');
 // wait(7000);  //7 seconds in milliseconds
 // console.log('after');

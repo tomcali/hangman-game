@@ -1,18 +1,9 @@
 // hangman-style game for teaching statistics
 
-// (function (global, factory) {
-  // typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-  // typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  // (factory((global.mygame = global.mygame || {})));
- // }(this, (function (exports) { 'use strict';
+// we wrap the entire game code in a standard JavaScript function
+// as an alternative to the $(document).ready(function() of jQuery
+document.addEventListener("DOMContentLoaded", function(event) { 
 
-// $(function() {  // earlier attempt via jQuery
-
-
-// JavaScript function that wraps everything   
-$(document).ready(function() {
-
-wait(1000);  // so html page loads before JavaScript code for game executes 
 // identify DOM elements up front 
      var guessText = document.getElementById("guessText");
      var oneLetterText = document.getElementById("oneLetterText");
@@ -26,7 +17,6 @@ wait(1000);  // so html page loads before JavaScript code for game executes
      var targetLetters = document.getElementById("targetLetters");
  
      var startButton = document.getElementById("startButton")
-     // var beginPlay = document.getElementById("beginPlay") // now defunct button
      
      // readGameData.js contains an array of JSON objects for the terms
      console.log('the game data represent an object with statistical terms,');
@@ -48,10 +38,10 @@ wait(1000);  // so html page loads before JavaScript code for game executes
 
      var target = []; // declare target array for display of solution
      for (var i = 0; i < numberTargetLetters; i++) 
-         target.push('_'); // start with underline
+         target.push('_'); // start with underline characters
+
  // set all items to blank at the start of a new game
- 
-     startButton.onclick = function() {
+      startButton.onclick = function() {
         statusText.innerHTML = '';
         definitionText.innerHTML = '';
         hintText.innerHTML = '';
@@ -118,7 +108,8 @@ wait(1000);  // so html page loads before JavaScript code for game executes
          // while (!validResponseSet.has(promptGuessLetter))
 
          // var promptGuessLetter = ''; declare variable outside of anon function
-         var promptGuessLetter = document.getElementById('letterGuess').elements;    
+         var promptGuessLetter = 
+             document.getElementById('letterGuess').value;    
          // var promptGuessLetter = $('letterGuess').serialize();
 
          // ensure that the DOM has been loaded prior to prompt
@@ -200,8 +191,8 @@ wait(1000);  // so html page loads before JavaScript code for game executes
      correctTerm.innerHTML = ('The correct word is ' + selectedTerm['term'] + '.');
 
      definitionText.innerHTML = selectedTerm['definition'];
-
-    });
+  
+});
 
  // })));
 

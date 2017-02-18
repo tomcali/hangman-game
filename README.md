@@ -15,7 +15,7 @@ I am also putting together a collection of utility functions that I expect to dr
 
 Sets simplify the implementation of hangman game logic. I focused on the game logic on this assignment. Not really concerned about how good the final game looks. Function over form is the rule for now. To check out the function, I use lots of console.log() functions. I include a file of set functions as well, though I did not need to use these for the hangman game. Good to have them handy, though, for future projects.
 
-I will continue to work with Bootstrap 4, which is currently in alpha release. 
+I will continue to work with Bootstrap 4, which is currently in alpha release. Bootstrap requires jQuery, although I make no use of jQuery in the hangman game code itself.
 
 The program is operational. There are data validation issues to address in the future...  things relating to user data input, such as then incorrect or multiple letters are entered in response to the prompt(). But these, as we have been told in class, will be better handled by modals. Modals will wait for another day.
 
