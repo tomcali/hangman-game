@@ -41,7 +41,11 @@ document.addEventListener("DOMContentLoaded", function() {
     var targetLetters = document.getElementById("targetLetters");
     var startButton = document.getElementById("startButton")
  
+ startButton.onclick = function() {
     // readGameData.js contains an array of JSON objects for the game items
+    console.log('-------------------------------');
+    console.log('-------- START NEW GAME -------');
+    console.log('-------------------------------');
     console.log('the game data represent an object with statistical terms,');
     console.log('short hints, and complete definitions of the terms.,');
     console.log(gameData);
@@ -155,5 +159,7 @@ document.addEventListener("DOMContentLoaded", function() {
         outcomeMessage = 'Better Luck Next Time';
 
     console.log('----- outcomeMessage:', outcomeMessage)
+
+} // startButton.onclick function end
 
 }); // end of total wrapper function
