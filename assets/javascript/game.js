@@ -4,65 +4,99 @@
 // we wrap the entire game code in a standard JavaScript function
 // as an alternative to the $(document).ready(function() of jQuery
 // another way would be to write  window.onload = function () {
-document.addEventListener("DOMContentLoaded", function(event) {
+document.addEventListener("DOMContentLoaded", function() {
+// document.addEventListener("startButton", "click", function() {
 
+// declare variables up front
+    var numberGuessesAllowed = 3; // hangman-like rules set constant
+    // regarding rules... set low value for testing
+    var indexOfTerm;
+    var selectedTerm;
+    var numberTargetLetters;
+    var target;
+    var termLetters;
+    var termLetterSet;
+    var alphabet;
+    var alphabetSet;
+    var availableLetterSet;
+    var usedLetterSet;
+    var numberBadGuesses; 
+    var continueGame; 
+    var outcomeMessage; 
+    var responseValid;
+    var promptGuessLetter;
+    var thisGuessLetter;
+    var targetSet;
+
+
+// identify DOM elements up front 
+    var oneLetterText = document.getElementById("oneLetterText");
+    var statusText = document.getElementById("status");
+    var definitionText = document.getElementById("definition");
+    var hintText = document.getElementById("hintText");
+    var correctTerm = document.getElementById("correctTerm");
+    var guessesRemaining = document.getElementById("guessesRemaining");
+    var lettersAvailable = document.getElementById("lettersAvailable");
+    var lettersUsed = document.getElementById("lettersUsed");
+    var targetLetters = document.getElementById("targetLetters");
+    var startButton = document.getElementById("startButton")
+ 
     // readGameData.js contains an array of JSON objects for the game items
     console.log('the game data represent an object with statistical terms,');
     console.log('short hints, and complete definitions of the terms.,');
     console.log(gameData);
 
     // choose an term at random
-    var indexOfTerm = getRandomInt(0, gameData.length - 1);
-    var selectedTerm = gameData[indexOfTerm];
+    indexOfTerm = getRandomInt(0, gameData.length - 1);
+    selectedTerm = gameData[indexOfTerm];
 
     console.log('selected term:', selectedTerm['term']);
     console.log('selected hint:', selectedTerm['hint']);
     console.log('selected definition:', selectedTerm['definition']);
 
-    var numberTargetLetters = selectedTerm['term'].length;
+    numberTargetLetters = selectedTerm['term'].length;
     console.log('number of letters in target: ', numberTargetLetters);
 
-    var target = []; // declare target array for display of solution
+    target = []; // declare target array for display of solution
     for (i = 0; i < numberTargetLetters; i++) {
         target.push(' ');
     }
     console.log('initial target has: ' + target.length + ' blank characters');
 
-    var termLetters = selectedTerm['term'].split("");
+    termLetters = selectedTerm['term'].split("");
     console.log('termLetters: ', termLetters);
 
-    var termLetterSet = new Set(termLetters);
+    termLetterSet = new Set(termLetters);
     console.log('termLetterSet:', termLetterSet);
 
-    var alphabet = ['A', 'B', 'C', 'D',
+    alphabet = ['A', 'B', 'C', 'D',
         'E', 'F', 'G',
         'H', 'I', 'J', 'K', 'L', 'M', 'N',
         'O', 'P', 'Q', 'R', 'S', 'T', 'U',
         'V', 'W', 'X', 'Y', 'Z'
     ];
 
-    var alphabetSet = new Set(alphabet);
+    alphabetSet = new Set(alphabet);
     console.log('alphabetSet: ', alphabetSet);
 
-    var availableLetterSet = new Set(alphabet);
+    availableLetterSet = new Set(alphabet);
     console.log('availableLetterSet: ', availableLetterSet);
 
-    var usedLetterSet = new Set(); // begins as empty set
+    usedLetterSet = new Set(); // begins as empty set
     console.log('initial usedLetterSet: ', usedLetterSet);
 
-    var numberGuessesAllowed = 3; // hangman rules
-    var numberBadGuesses = 0; // initialize count prior to for-loop
-    var continueGame = true; // Boolean switch use in while loop
-    var outcomeMessage = ''; // initialize message showing game outcome
+    numberBadGuesses = 0; // initialize count prior to for-loop
+    continueGame = true; // Boolean switch use in while loop
+    outcomeMessage = ''; // initialize message showing game outcome
     while ((numberBadGuesses < numberGuessesAllowed) && continueGame) {
         console.log('-----------------------------');
     
     // check to see that the response is valid... 
     // must be a single letter and cannot be a letter 
     // that was chosen previously    
-        var responseValid = false;
+        responseValid = false;
         while (!responseValid) {
-            var promptGuessLetter = 
+            promptGuessLetter = 
                 prompt('guess a letter').toUpperCase();
             if((alphabetSet.has(promptGuessLetter)) &&
                 (!usedLetterSet.has(promptGuessLetter)))
@@ -74,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         // we convert the typed letter to uppercase
         // with each guess we add to the usedLetterSet
         // and delete from the availableLetterSet 
-        var thisGuessLetter = promptGuessLetter.toUpperCase();
+        thisGuessLetter = promptGuessLetter.toUpperCase();
         console.log('thisGuessLetter: ', thisGuessLetter);
 
         usedLetterSet.add(thisGuessLetter);
@@ -101,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
             // if there are no longer any blank characters in the target
             // then the game has been won and we pop out of the while-loop
-            var targetSet = new Set(target);
+            targetSet = new Set(target);
             if (!targetSet.has(' ')) {
                 outcomeMessage = 'You Win';
                 continueGame = false;
