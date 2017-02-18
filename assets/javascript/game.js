@@ -1,13 +1,33 @@
- // hangman-style game for teaching statistics
-// https://d3js.org Version 4.2.7. Copyright 2016 Mike Bostock.
-(function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-  typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (factory((global.mygame = global.mygame || {})));
-}(this, (function (exports) { 'use strict';
+// hangman-style game for teaching statistics
+
+// (function (global, factory) {
+  // typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+  // typeof define === 'function' && define.amd ? define(['exports'], factory) :
+  // (factory((global.mygame = global.mygame || {})));
+ // }(this, (function (exports) { 'use strict';
 
 // $(function() {  // earlier attempt via jQuery
 
+
+// JavaScript function that wraps everything   
+$(document).ready(function() {
+
+wait(1000);  // so html page loads before JavaScript code for game executes 
+// identify DOM elements up front 
+     var guessText = document.getElementById("guessText");
+     var oneLetterText = document.getElementById("oneLetterText");
+     var statusText = document.getElementById("status");
+     var definitionText = document.getElementById("definition");
+     var hintText = document.getElementById("hintText");
+     var correctTerm = document.getElementById("correctTerm");
+     var guessesRemaining = document.getElementById("guessesRemaining");
+     var lettersAvailable = document.getElementById("lettersAvailable");
+     var lettersUsed = document.getElementById("lettersUsed");
+     var targetLetters = document.getElementById("targetLetters");
+ 
+     var startButton = document.getElementById("startButton")
+     // var beginPlay = document.getElementById("beginPlay") // now defunct button
+     
      // readGameData.js contains an array of JSON objects for the terms
      console.log('the game data represent an object with statistical terms,');
      console.log('short hints, and complete definitions of the terms.,');
@@ -29,7 +49,26 @@
      var target = []; // declare target array for display of solution
      for (var i = 0; i < numberTargetLetters; i++) 
          target.push('_'); // start with underline
-     
+ // set all items to blank at the start of a new game
+ 
+     startButton.onclick = function() {
+        statusText.innerHTML = '';
+        definitionText.innerHTML = '';
+        hintText.innerHTML = '';
+        correctTerm.innerHTML = '';
+        guessesRemaining.innerHTML = '';
+        lettersAvailable.innerHTML = '';
+        lettersUsed.innerHTML = '';
+        // targetLetters.innerHTML = '';
+     } // end of start of the game block
+
+     // beginPlay.onclick = function() {
+       guessText.innerHTML = 'Guess the statistical term.'; 
+       oneLetterText.innerHTML = 'Type one letter and click Enter.';    
+       targetLetters.innerHTML = target.join(' '); // replaces array commas with spaces
+     // }; // end beginPlay on-click function block         
+ // } // end of start of the game block
+
      console.log('initial target has: ' + target.length + ' blank characters');
 
      var termLetters = selectedTerm['term'].split("");
@@ -45,6 +84,13 @@
 
      var alphabetSet = new Set(alphabet);
      console.log('alphabetSet: ', alphabetSet);
+  
+     // define set of all valid responses... one letter uppercase or lowercase
+     // var validResponse = alphabet;
+     // for (i=0; i<alphabet.length; i++) 
+        // validResponse.push(alphabet[i].toLowerCase());
+     // var validResponseSet = new Set(validResponse); 
+
 
      var availableLetterSet = new Set(alphabet);
      console.log('availableLetterSet: ', availableLetterSet);
@@ -55,22 +101,8 @@
      var numberGuessesAllowed = 3; // hangman rules
      var numberBadGuesses = 0; // initialize count prior to for-loop
      var continueGame = true; // Boolean switch use in while loop
+ 
      var outcomeMessage = 'Playing Game'; // initialize message showing game outcome
-
-     var statusText = document.getElementById("status");
-
-     var definitionText = document.getElementById("definition");
-
-     var hintText = document.getElementById("hintText");
-
-     var correctTerm = document.getElementById("correctTerm");
-
-     var guessesRemaining = document.getElementById("guessesRemaining");
-     var lettersAvailable = document.getElementById("lettersAvailable");
-     var lettersUsed = document.getElementById("lettersUsed");
-     var targetLetters = document.getElementById("targetLetters");
-
-     targetLetters.innerHTML = target.join(' ');
 
      while ((numberBadGuesses < numberGuessesAllowed) && continueGame) {
          // use dashes as separator for iterations in console
@@ -81,8 +113,20 @@
 
          console.log('---------------------------')
 
-         var promptGuessLetter = prompt('enter a letter from the alphabet');
-         console.log('promptGuessLetter: ', promptGuessLetter);
+         // var promptGuessLetter = '';  // initialize
+         // prompt will repeat until a valid response is given
+         // while (!validResponseSet.has(promptGuessLetter))
+
+         // var promptGuessLetter = ''; declare variable outside of anon function
+         var promptGuessLetter = document.getElementById('letterGuess').elements;    
+         // var promptGuessLetter = $('letterGuess').serialize();
+
+         // ensure that the DOM has been loaded prior to prompt
+         // $(document).ready(function(){
+            // promptGuessLetter = prompt('enter a letter from the alphabet');
+            // console.log('promptGuessLetter: ', promptGuessLetter);
+         // });
+         
          // this must be a single letter... no other characters permitted
          // we convert the typed letter to uppercase
          // with each guess we add to the usedLetterSet
@@ -126,7 +170,7 @@
              console.log(thisGuessLetter + ' is NOT a correct guess')
              numberBadGuesses++;
              console.log('numberBadGuesses: ', numberBadGuesses);
-             guessesRemaining.innerHTML = 'Guessing remaining: ' +
+             guessesRemaining.innerHTML = 'Guesses remaining: ' +
                  (numberGuessesAllowed - numberBadGuesses);
              console.log('current target display:', target.join(' '));
          }
@@ -156,5 +200,8 @@
      correctTerm.innerHTML = ('The correct word is ' + selectedTerm['term'] + '.');
 
      definitionText.innerHTML = selectedTerm['definition'];
- })));
+
+    });
+
+ // })));
 

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>hangman-try</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="assets/css/styles.css"> -->
+    <link rel="stylesheet" href="assets/css/styles.css"> 
 </head>
 
 <body>
@@ -17,20 +17,28 @@
     <div class="jumbotext">
         <h2 class="text-center">Guessing Your Way through Statistics</h2>
         <p class="text-center">Statistics doesn't have to be dull. Have fun with this hangman-style game involving statistical terminology.</p>
-        <p><a id="startButton" class="btn btn-default" role="button" href="#">Play New Game</a></p>
+        <p><a id="startButton" class="btn btn-default" role="button" href="#">Set Up New Game</a></p>
+        <!-- <p><a id="beginPlay" class="btn btn-default" role="button" href="#">Begin Play</a></p> -->
     </div>
     <div class="container">
         <div class="row">
             <div class="col-md-4">
                 <h3 id="targetLetters"></h3>
-                <p>Guess the statistical term.</p>
-                <p>One letter of the term goes in each space.</p>
+                <p id="guessText">Guess the statistical term.</p>
+               
                 <p id="hintText"></p>
+                <p id="oneLetterText">Type one letter and click Enter.</p>
+                <form id="letterForm">
+                <input id="letterGuess" type="text" size="5" maxlength="1"> 
+                <!-- <input name="ratebutton" type="button" value="Enter" onClick=#> -->
+                <p><a id="letterButton" class="btn btn-default" role="button"
+                     href="#" onClick=#>Enter</a></p>
             </div>
             <div class="col-md-4">
                 <p id="guessesRemaining"></p>
                 <p id="lettersAvailable"></p>
                 <p id="lettersUsed"></p>
+                
             </div>
             <div class="col-md-4">
                 <h3 id="status"></h3>
