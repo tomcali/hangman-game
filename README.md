@@ -19,6 +19,11 @@ I will continue to work with Bootstrap 4, which is currently in alpha release. B
 
 The program is operational, including checks for valid user data input in response to the prompt(). The logic of the game is revealed in the console log.
 
+To finish the work, I need to fix the display of the target, the underline and correct letters display showing the status of the game. For some reason this is not being rendered in the DOM. This is important to fix because it provides necessary feedback to the participant.
+
+Also, I want to find a better way to do the input. prompt() is intrusive and covers part of the screen we want displayed. I tried forms with little success. Will need to work on that. Also I am told that modals are the way to go, but I still need to learn about those.
+
+
 ## Viewing the Websites
 
 The results of this homework are available as GitHub web pages.
@@ -42,4 +47,4 @@ The game is a hangman style game displayed with a Bootstrap Jumbotron at the top
 - Set up the structure a la bootstrap.
 - Set up method for importing the data for the statistical terms in the JSON structure.
 - Did a bit of JavaScrip coding for the game itself. There are still rough edges that need work but the general structure is in place.
-- Deployed hangman-game to gh-pages.
+- Deployed to gh-pages.
