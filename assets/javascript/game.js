@@ -22,17 +22,17 @@ document.addEventListener("DOMContentLoaded", function() {
     var usedLetterSet;
     var numberBadGuesses; 
     var continueGame; 
-    var outcomeMessage; 
     var responseValid;
     var promptGuessLetter;
     var thisGuessLetter;
     var targetSet;
-
+    var availableLetterArray;
+    var usedLetterArray;
 
 // identify DOM elements up front 
     var oneLetterText = document.getElementById("oneLetterText");
-    var statusText = document.getElementById("status");
-    var definitionText = document.getElementById("definition");
+    var statusText = document.getElementById("statusText");
+    var definitionText = document.getElementById("definitionText");
     var hintText = document.getElementById("hintText");
     var correctTerm = document.getElementById("correctTerm");
     var guessesRemaining = document.getElementById("guessesRemaining");
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     target = []; // declare target array for display of solution
     for (i = 0; i < numberTargetLetters; i++) {
-        target.push(' ');
+        target.push('_');
     }
     console.log('initial target has: ' + target.length + ' blank characters');
 
@@ -94,7 +94,13 @@ document.addEventListener("DOMContentLoaded", function() {
     outcomeMessage = ''; // initialize message showing game outcome
     while ((numberBadGuesses < numberGuessesAllowed) && continueGame) {
         console.log('-----------------------------');
-    
+        availableLetterArray = Array.from(availableLetterSet);
+        lettersAvailable.innerHTML =
+             'Letters available: ' + availableLetterArray.join(' ');
+
+        usedLetterArray = Array.from(usedLetterSet);
+        lettersUsed.innerHTML =
+             'Letters used: ' + usedLetterArray.join(' ');
     // check to see that the response is valid... 
     // must be a single letter and cannot be a letter 
     // that was chosen previously    
@@ -135,18 +141,39 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             }
 
-            console.log('current target display:', target);
+            
 
             // if there are no longer any blank characters in the target
             // then the game has been won and we pop out of the while-loop
             targetSet = new Set(target);
-            if (!targetSet.has(' ')) {
-                outcomeMessage = 'You Win';
+            if (!targetSet.has('_')) {
+                
                 continueGame = false;
+                availableLetterArray = Array.from(availableLetterSet);
+                lettersAvailable.innerHTML =
+                    'Letters available: ' + availableLetterArray.join(' ');
+
+                usedLetterArray = Array.from(usedLetterSet);
+                lettersUsed.innerHTML =
+                   'Letters used: ' + usedLetterArray.join(' ');
+
+                console.log('current target display:', target.join(' '));
+                
             } 
         } else {
             numberBadGuesses++;
+            console.log('bad guess');
             console.log('numberBadGuesses: ', numberBadGuesses)
+            availableLetterArray = Array.from(availableLetterSet);
+            lettersAvailable.innerHTML =
+                    'Letters available: ' + availableLetterArray.join(' ');
+
+            usedLetterArray = Array.from(usedLetterSet);
+            lettersUsed.innerHTML =
+                   'Letters used: ' + usedLetterArray.join(' ');
+
+            console.log('current target display:', target.join(' '));
+
         } 
 
     }; // end of major while-loop
@@ -155,11 +182,20 @@ document.addEventListener("DOMContentLoaded", function() {
     // guessing all the letters... then you lose the game
     // ... but the correct answer is shown with definition
 
-    if (numberBadGuesses === numberGuessesAllowed)
-        outcomeMessage = 'Better Luck Next Time';
+    // report result of game to DOM
+    if (numberBadGuesses === numberGuessesAllowed) {
+        console.log("report game outcome: Better Luck Next Time");
+        statusText.innerHTML = 'Better Luck Next Time';
+    }
+    else {
+        console.log("report game outcome: You Win");
+        statusText.innerHTML = 'You Win';
+    }
 
-    console.log('----- outcomeMessage:', outcomeMessage)
+    correctTerm.innerHTML = ('The correct word is ' + selectedTerm['term'] + '.');
 
+    definitionText.innerHTML = selectedTerm['definition'];
+  
 } // startButton.onclick function end
 
 }); // end of total wrapper function
